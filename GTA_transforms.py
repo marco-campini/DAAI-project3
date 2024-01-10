@@ -42,7 +42,7 @@ class CityScapes(Dataset):
         for label in self.label_map:
             # create a mask that equals 'True' where the color of the current label is found
             color_array = np.array(label['color'])
-            mask = np.array(ground_truth) == color_array
+            mask = np.all(np.array(ground_truth) == color_array, axis=-1, keepdims=True)
             # populate the numpy array with the label id using the mask
             converted_label[mask] = label['ID']
         # transpose the array to match the shape of the image
