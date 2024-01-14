@@ -12,14 +12,14 @@ class CityScapes(Dataset):
     def __init__(self, mode, image_dir=Path('/content/Cityscapes/Cityspaces/'), im_size=(1024,512)):
         super(CityScapes, self).__init__()
         self.mode = mode
-        self.transform = transform
         self.im_size = im_size
 
-        # get all images and their ground truths
+        # get images and ground truths directories
         self.images = []
         self.image_dir = os.path.join(image_dir, 'images', mode)
         self.ground_truth_dir = self.image_dir.replace('images', 'gtFine')
         folders = os.listdir(self.image_dir)
+        # get all the images
         for folder in folders:
             folder_path = os.path.join(self.image_dir, folder)
             image_names = os.listdir(folder_path)
