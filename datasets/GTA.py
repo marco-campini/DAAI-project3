@@ -25,7 +25,7 @@ class CityScapes(Dataset):
         self.label_map = self.__get_label_map__()
 
     # define a method that converts a certain color to its corresponding label
-    def convert_labels(self, ground_truth):
+    def __convert_labels__(self, ground_truth):
         # create a numpy array the same size of the ground truth and put zero everywhere
         converted_label = np.zeros((*np.array(ground_truth).shape[:-1], 1), dtype=np.int64)
         # check each label in the label map
@@ -58,7 +58,7 @@ class CityScapes(Dataset):
         # convert ground truth to numpy array
         ground_truth = np.array(ground_truth).astype(np.int64)
         # convert the colors of the ground truth to the labels
-        ground_truth = self.convert_labels(ground_truth)
+        ground_truth = self.__convert_labels__(ground_truth)
         return image, ground_truth
 
     def __len__(self):
