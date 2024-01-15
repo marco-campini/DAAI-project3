@@ -22,7 +22,7 @@ class CityScapes(Dataset):
         # create a transform to convert image to tensor
         self.to_tensor = transforms.ToTensor()
         # get the map with the ground truth labels
-        self.label_map = self.get_label_map()
+        self.label_map = self.__get_label_map__()
 
     # define a method that converts a certain color to its corresponding label
     def convert_labels(self, ground_truth):
@@ -65,7 +65,7 @@ class CityScapes(Dataset):
         return len(self.images)
 
     # define a method that returns the labels map, mapping each color to a label
-    def get_label_map(self):
+    def __get_label_map__(self):
         road = {'ID':0, 'color':(128, 64, 128)}
         sidewalk = {'ID':1, 'color':(244, 35, 232)}
         building = {'ID':2, 'color':(70, 70, 70)}
