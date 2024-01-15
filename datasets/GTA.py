@@ -15,11 +15,9 @@ class CityScapes(Dataset):
         self.im_size = im_size
         
         # get all the images
-        self.images = []
         self.image_dir = os.path.join(image_dir, 'images', mode)
         self.ground_truth_dir = self.image_dir.replace('images', 'labels')
-        image_names = os.listdir(self.image_dir)
-        self.images.extend(image_names)
+        self.images = os.listdir(self.image_dir)
 
         # create a transform to convert image to tensor
         self.to_tensor = transforms.ToTensor()
