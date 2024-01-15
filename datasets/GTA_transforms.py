@@ -32,17 +32,17 @@ class CityScapes(Dataset):
         # create a transform to convert image to tensor
         self.to_tensor = transforms.ToTensor()
         # get the map with the ground truth labels
-        self.label_map = self.get_label_map()
+        self.label_map = self.__get_label_map__()
 
     # define a method that converts a certain color to its corresponding label
-    def convert_labels(self, ground_truth):
+    def __convert_labels__(self, ground_truth):
         # create a numpy array the same size of the ground truth and put zero everywhere
-        converted_label = np.zeros((*np.array(ground_truth).shape[:-1], 1), dtype=np.int64)
+        converted_label = np.zeros((*ground_truth.shape[:-1], 1), dtype=np.int64)
         # check each label in the label map
         for label in self.label_map:
             # create a mask that equals 'True' where the color of the current label is found
             color_array = np.array(label['color'])
-            mask = np.all(np.array(ground_truth) == color_array, axis=-1, keepdims=True)
+            mask = np.all(ground_truth == color_array, axis=-1, keepdims=True)
             # populate the numpy array with the label id using the mask
             converted_label[mask] = label['ID']
         # transpose the array to match the shape of the image
@@ -72,7 +72,7 @@ class CityScapes(Dataset):
         # convert ground truth to numpy array
         ground_truth = np.array(ground_truth).astype(np.int64)
         # convert the colors of the ground truth to the labels
-        ground_truth = self.convert_labels(ground_truth)
+        ground_truth = self.__convert_labels__(ground_truth)
        
         return image, ground_truth
 
@@ -80,7 +80,7 @@ class CityScapes(Dataset):
         return len(self.images)
 
     # define a method that returns the labels map, mapping each color to a label
-    def get_label_map(self):
+    def __get_label_map__(self):
         road = {'ID':0, 'color':(128, 64, 128)}
         sidewalk = {'ID':1, 'color':(244, 35, 232)}
         building = {'ID':2, 'color':(70, 70, 70)}
