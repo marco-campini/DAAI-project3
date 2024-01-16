@@ -66,7 +66,7 @@ class CityScapes(Dataset):
         # resize ground truth - use BILINEAR to get a smoother image, no need to keep the labels intact
         ground_truth = ground_truth.resize(self.im_size, Image.BILINEAR)
         # apply the transforms with a 50% probability
-        if random.random() > 0.5:
+        if random.random() > 0.5 and mode=='train':
           image = self.img_transform(image)
           ground_truth = self.gt_transform(ground_truth)
         # convert ground truth to numpy array
