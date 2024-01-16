@@ -149,7 +149,11 @@ def parse_args():
                        type=str,
                        default='crossentropy',
                        help='loss function')
-
+    parse.add_argument('--ckpt',
+                      dest = 'ckpt',
+                      type = str,
+                      default = None,
+                      )
 
     return parse.parse_args()
 
